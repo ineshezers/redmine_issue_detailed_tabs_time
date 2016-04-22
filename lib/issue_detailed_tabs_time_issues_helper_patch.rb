@@ -18,7 +18,7 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
       end
 
       def valid_tabs
-        ['history_comments','history_all','history_activity','history_private','tabtime_time','history_none']
+        ['history_comments','history_all','history_activity','history_private','tabtime_time']
       end
 
       def get_issue_history_index(index, count)
@@ -47,7 +47,6 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
         if User.current.allowed_to?(:view_all,@project,:global => true)
           tabs.push({:label => :label_history_tab_all, :name => 'history_all'})
         end
-        tabs.push({:label => :label_history_tab_none, :name => 'history_none'})
         for entry in entries
           if entry.is_a?(Journal) && journals.include?(entry)
             tabs.push({:label => :label_history_tab_comments, :name => 'history_comments'}) if entry.notes? && User.current.allowed_to?(:view_comments,@project,:global => true)
